@@ -1,7 +1,11 @@
 version: '3.8'
+
+# Add a name for the project (optional but recommended)
+name: vprofile
+
 services:
   vprodb:
-    build: 
+    build:
       context: ./Docker-files/db
     image: vprocontainers/vprofiledb
     container_name: vprodb
@@ -26,7 +30,7 @@ services:
       - RABBITMQ_DEFAULT_PASS=guest
 
   vproapp:
-    build: 
+    build:
       context: ./Docker-files/app
     image: vprocontainers/vprofileapp
     container_name: vproapp
@@ -34,16 +38,23 @@ services:
       - "8080:8080"
     volumes:
       - vproappdata:/usr/local/tomcat/webapps
-    
+    # Add dependencies to ensure correct startup order
+    depends_on:
+      - vprodb
+      - vprocache01
+      - vpromq01
+
   vproweb:
-    build: 
+    build:
       context: ./Docker-files/web
     image: vprocontainers/vprofileweb
     container_name: vproweb
     ports:
       - "80:80"
+    # Ensure web service starts after app service
+    depends_on:
+      - vproapp
 
 volumes:
    vprodbdata: {}
    vproappdata: {}
-  
