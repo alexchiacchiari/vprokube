@@ -1,0 +1,15 @@
+# this file defines a PersistentVolumeClaim for the database
+# it is used to request storage resources for the database pod
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db-pv-claim
+  labels:
+    app: vprodb
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 3Gi
+  storageClassName: default
