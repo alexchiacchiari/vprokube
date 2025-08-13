@@ -34,7 +34,7 @@ spec:
           persistentVolumeClaim:
             claimName: db-pv-claim
 
-      initContainer:
+      initContainers:
         - name: init-db
           image: busybox:latest
           command: ["rm", "-rf", "/var/lib/mysql/lost+found"]
