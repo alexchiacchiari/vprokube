@@ -3,13 +3,13 @@ kind: Ingress
 metadata:
   name: vproapp-ingress
   annotations:
-    nginx.ingress.kubernetes.io/use-regex: true
+    nginx.ingress.kubernetes.io/use-regex: "true" 
 spec:
   ingressClassName: nginx
   rules:
     - host: vprofile.testaws.store
       http:
-        paths: 
+        paths:
           - path: /
             pathType: Prefix
             backend:
